@@ -13,7 +13,8 @@ void BubbleSort( int [] );
 void BucketSort( int [] );
 
 /* 定義値 */
-#define ARRAY_MAX 15
+#define ARRAY_MAX 15 // ソート対象の配列最大数
+#define BUCKET_MAX_SIZE 1000 //バケットソートの配列
 
 int main( int argc, char *argv[] )
 {
@@ -25,8 +26,8 @@ int main( int argc, char *argv[] )
   getRandomNumbers( randomNumbers );
 
   // 配列のソート
-  BubbleSort( randomNumbers );
-
+  //  BubbleSort( randomNumbers );
+  BucketSort( randomNumbers );
   // 配列の要素を全て表示する
   for( n = 0; n < ARRAY_MAX; n++ )
     {
@@ -72,5 +73,29 @@ void BubbleSort( int Array[] )
 
 void BucketSort( int Array[] )
 {
+  int Bucket[BUCKET_MAX_SIZE];
+  int n,m;
+
+  n = m = 0;
+
+  for( n = 0; n < BUCKET_MAX_SIZE; n++ )
+    {
+      Bucket[n] = 0; // バケットの要素を0にする
+    }
+    
+  for( n = 0; n < ARRAY_MAX; n++ )
+    {
+      Bucket[ Array[n] ] = Array[n];
+    }
+
+  for( n = 0; n < BUCKET_MAX_SIZE; n++ )
+    {
+      if( Bucket[n] != 0 )
+	{
+	  Array[m] = Bucket[n];
+	  m++;
+	}
+    } 
+  
   return;
 }
